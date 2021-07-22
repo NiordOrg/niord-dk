@@ -181,9 +181,81 @@
     "editable"    : true
   },
   {
+    "key": "linkChart",
+    "value": "",
+    "description": "",
+    "type": "String",
+	"web"         : false,
+    "editable"    : true
+  },
+  {
+    "key": "linkChartEn ",
+    "value": "https://nautiskinformation.soefartsstyrelsen.dk/rest/repo/file/publications/a/f6/af66dd1e-39b4-48a7-8b92-5dd6731fd744/1/NtM-A-v1-2021.pdf",
+    "description": "Link to EfS A",
+    "type": "String",
+	"web"         : false,
+    "editable"    : true
+  },
+  {
+    "key": "linkFoChart ",
+    "value": "https://www.us.fo/Files/Filer/US/kort_og_skrair/sjokort/Sjokortraettingar_2021.pdf",
+    "description": "Chart corrections",
+    "type": "String",
+	"web"         : false,
+    "editable"    : true
+  },
+  {
+    "key": "linkFoChartEn ",
+    "value": "https://www.us.fo/Files/Filer/US/kort_og_skrair/sjokort/Sjokortraettingar_2021.pdf",
+    "description": "English Chart corrections",
+    "type": "String",
+	"web"         : false,
+    "editable"    : true
+  },
+  {
+    "key": "linkNtm ",
+    "value": "",
+    "description": "Link to Notice to mariners",
+    "type": "String",
+	"web"         : false,
+    "editable"    : true
+  },
+  {
+    "key": "linkPT ",
+    "value": "",
+    "description": "Link to publication template",
+    "type": "String",
+	"web"         : false,
+    "editable"    : true
+  },
+  {
+    "key": "linkPTen ",
+    "value": "",
+    "description": "Link to english publication template",
+    "type": "String",
+	"web"         : false,
+    "editable"    : true
+  },
+  {
     "key"         : "mapImageServer",
     "description" : "URL of static-map service used for generation map thumbnails",
     "value"       : "http://osm.e-navigation.net/staticmap.php",
+    "web"         : false,
+    "editable"    : true
+  },
+   {
+    "key": "newsletterId ",
+    "value": 1102691,
+    "description": "Id for newsletter",
+    "type": "String",
+    "web"         : false,
+    "editable"    : true
+  },
+  {
+    "key": "mailListId",
+    "value": "75170",
+    "description": "the mail list used to send newsletters to",
+    "type": "String",
     "web"         : false,
     "editable"    : true
   },
@@ -202,3 +274,4 @@
     "editable"    : true
   }
 ]
+
