@@ -252,6 +252,14 @@
     "editable"    : true
   },
   {
+    "key": "newsletterServiceUrl ",
+    "value": "http://localhost:44343/api/Newsletter/",
+    "description": "URL for newsletter service",
+    "type": "String",
+    "web"         : false,
+    "editable"    : true
+  },
+  {
     "key": "mailListId",
     "value": "75170",
     "description": "the mail list used to send newsletters to",
