@@ -579,7 +579,7 @@ angular.module('niord.admin')
         return {
             /**  **/
             sendNewsletter: function(newsletter) {
-                return $http.post('/rest/newsletter/send?linkChartWeek=' + newsletter.linkChartWeek + '&linkChartYear=' + newsletter.linkChartYear + '&email=' + newsletter.email);
+                return $http.post('/rest/newsletter/send?linkChartWeek=' + newsletter.linkChartWeek + '&linkChartYear=' + newsletter.linkChartYear + '&email=' + newsletter.email + '&isTest=' + newsletter.isTest);
             }
         };
     }])
