@@ -6,7 +6,7 @@
         <p>Send newsletters.</p>
 
 
-        <div ng-show="testNewsletter === undefined && newsletter === undefined">
+        <div ng-show="newsletter === undefined">
                 <button type="submit" class="btn btn-primary btn-sm" ng-click="addNewsletter(true)">
                     <span class="glyphicon glyphicon-plus"></span> Test newsletter
                 </button>
@@ -20,22 +20,22 @@
                     <label class="control-label">Link Chart Week</label>
                     <div class="row">
                         <div class="col-sm-6">
-                            <input id="linkChartWeekId" type="number" name="week" min="1" max="52" step="1" value="1" ng-model="newsletter.linkChartWeek" required pattern="\S+" title="This field is required">
+                            <input id="linkChartWeekId" type="number" name="week" min="1" max="52" step="1" placeholder= 1 ng-model="newsletter.linkChartWeek" required >
                         </div>
                     </div>
                     <label class="control-label">Link Chart Year</label>
                     <div class="row">
                         <div class="col-sm-6">
-                            <input id="linkChartYearId" type="number" name="year" min="1900" max="2099" step="1" value="2021" ng-model="newsletter.linkChartYear" required pattern="\S+" title="This field is required">
+                            <input id="linkChartYearId" type="number" name="year" min="1900" max="2099" step="1" placeholder=2021 ng-model="newsletter.linkChartYear" required >
                         </div>
                     </div>
                 </div>
                 <!-- ************** Add/edit mailing list ************** -->
-                <div ng-if="testNewsletter == true"
+                <div ng-if="newsletter.isTest == true"
                      ng-include="'/app/admin/admin-page-testnewsletter-edit.html'">
                 </div>
                 <!-- ************** Add/edit mailing list ************** -->
-                <div ng-if="testNewsletter == false"
+                <div ng-if="newsletter.isTest == false"
                      ng-include="'/app/admin/admin-page-newsletter-edit.html'">
                 </div>
             </div>

@@ -32,48 +32,55 @@ angular.module('niord.admin')
                   AdminNewsletterService, DialogService) {
             'use strict';
 
-            $scope.newsletterList = [];
             $scope.newsletter = undefined; // The newsletter being edited
-            $scope.testNewsletter = undefined; // true or false depending on if we are sending a test newsletter
             $scope.editMode = 'add';
-            $scope.search = '';
             $scope.hasRole = $rootScope.hasRole;
             $scope.timeZones = moment.tz.names();
+
+
+            /** Displays the error message */
+            $scope.displayError = function (errorMsg) {
+                growl.error("Error: " + errorMsg + " Failed sending newsletter. See console for details.", { ttl: 5000 });
+            };
 
             /** reset the newsletter from the back-end */
             $scope.resetNewsletter = function() {
                 $scope.newsletter = undefined;
-                $scope.testNewsletter = undefined;
+                $scope.editMode = undefined;
             };
 
             $scope.addNewsletter = function (isTest) {
                 $scope.editMode = 'add';
-                $scope.testNewsletter = isTest;
                 $scope.newsletter = {
                     email: undefined,
                     linkChartWeek: undefined,
                     linkChartYear: undefined,
+                    isTest: isTest // true or false depending on if we are sending a test newsletter
                 };
             };
 
             $scope.sendNewsLetter = function () {
-                console.log($scope.newsletter);
-                if($scope.testNewsletter == false || $scope.testNewsletter == true &&  $scope.newsletter.email !== undefined) {
+                if($scope.newsletter.isTest == false || $scope.newsletter.isTest == true &&  $scope.newsletter.email !== undefined) {
                     if($scope.newsletter.linkChartYear !== undefined && $scope.newsletter.linkChartWeek !== undefined) {
                         DialogService.showConfirmDialog(
-                            "Send " + ($scope.testNewsletter == true ? "test" : "") + " newsletter?", "Send newsletter to " + ($scope.testNewsletter == true ? "email" : "mail list") +"?")
+                            "Send " + ($scope.newsletter.isTest == true ? "test" : "") + " newsletter?", "Send newsletter to " + ($scope.newsletter.isTest == true ? "email" : "mail list") +"?")
                         .then(function() {
-                                if($scope.testNewsletter == false)
+                                   AdminNewsletterService.sendNewsletter($scope.newsletter)
+                                .success(function(data)
                                 {
-                                    $scope.newsletter.email  = ""
-                                }
-                               AdminNewsletterService.sendNewsletter($scope.newsletter)
-                                .success(function (newsletter) {
-                                    $scope.newsletter = newsletter;
+                                    if(data.status !== 200)
+                                    {
+                                        $scope.displayError(data.status)
+                                        console.log(data)
+                                    }
+                                    else
+                                    {
+                                        $scope.resetNewsletter()
+                                    }
                                 });
-
                         });
                     }
                 }
             };
+
         }])
