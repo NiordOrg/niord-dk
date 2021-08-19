@@ -127,10 +127,6 @@
 							<artifactId>niord-web</artifactId>
 						</overlay>
 					</overlays>
-					<compilerArgs>
-						<arg>--add-modules</arg>
-						<arg>jdk.incubator.httpclient</arg>
-					</compilerArgs>
 				</configuration>
 			</plugin>
 		</plugins>
