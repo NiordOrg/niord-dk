@@ -253,7 +253,7 @@
   },
   {
     "key": "newsletterServiceUrl ",
-    "value": "http://localhost:44343/api/Newsletter/",
+    "value": "http://localhost:8250/api/Newsletter/",
     "description": "URL for newsletter service",
     "type": "String",
     "web"         : false,
