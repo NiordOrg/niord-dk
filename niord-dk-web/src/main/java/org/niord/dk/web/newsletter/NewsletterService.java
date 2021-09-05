@@ -16,6 +16,13 @@
 
 package org.niord.dk.web.newsletter;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.util.EntityUtils;
 import org.jboss.resteasy.annotations.GZIP;
 import org.jboss.resteasy.annotations.cache.NoCache;
 import org.jboss.ejb3.annotation.SecurityDomain;
@@ -48,9 +55,9 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+//import java.net.http.HttpClient;
+//import java.net.http.HttpRequest;
+//import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.*;
@@ -238,6 +245,7 @@ public class NewsletterService{
         String jsonString = getJsonString(jsonObject);
 
 
+        /*
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(jsonString))
@@ -249,12 +257,21 @@ public class NewsletterService{
         {
             log.error("Newsletterservice error: " + result.statusCode(), result.body());
         }
+        */
 
-        JsonObjectBuilder jsonObjectResponse = Json.createObjectBuilder();
-        jsonObjectResponse.add("status", result.statusCode());
-        jsonObjectResponse.add("body", result.body().toString());
+        HttpPost postRequest = new HttpPost( URI.create(getNewsletterSerivceUrl() + (isTest ? "sendtest" : "send")) );
+        postRequest.addHeader("Content-Type", "application/json");
+        postRequest.setEntity(new StringEntity(jsonString));
+        try ( CloseableHttpClient httpClient = HttpClients.createDefault();
+            CloseableHttpResponse httpResponse = httpClient.execute(postRequest) ) {
 
-        return getJsonString(jsonObjectResponse.build());
+            HttpEntity entity = httpResponse.getEntity();
+            JsonObjectBuilder jsonObjectResponse = Json.createObjectBuilder();
+            jsonObjectResponse.add("status", httpResponse.getStatusLine().getStatusCode());
+            jsonObjectResponse.add("body", EntityUtils.toString(entity));
+
+            return getJsonString(jsonObjectResponse.build());
+        }
     }
 
     private static String getJsonString(JsonObject jsonObject) throws IOException {
