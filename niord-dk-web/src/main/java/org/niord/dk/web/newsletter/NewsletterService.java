@@ -259,6 +259,7 @@ public class NewsletterService{
         }
         */
 
+        log.error("Calling newsletterservice with " + URI.create(getNewsletterSerivceUrl() + (isTest ? "sendtest" : "send")));
         HttpPost postRequest = new HttpPost( URI.create(getNewsletterSerivceUrl() + (isTest ? "sendtest" : "send")) );
         postRequest.addHeader("Content-Type", "application/json");
         postRequest.setEntity(new StringEntity(jsonString));
