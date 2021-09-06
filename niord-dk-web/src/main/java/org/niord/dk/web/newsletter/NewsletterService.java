@@ -102,6 +102,7 @@ public class NewsletterService{
     @NoCache
     public String sendNewsletter(@QueryParam("linkChartWeek") String linkChartWeek, @QueryParam("linkChartYear") String linkChartYear, @QueryParam("email") String email, @QueryParam("isTest") boolean isTest) throws IOException, InterruptedException {
 
+        log.info("1");
         baseUri = getBaseUri();
         List<NewsletterPdfDTO> newsletterPdfDTOList = new ArrayList<NewsletterPdfDTO>();
 
@@ -119,6 +120,7 @@ public class NewsletterService{
         PagedSearchResultVo<PublicationVo> efsPublicationSearchResult = publicationService.searchPublications(params)
                 .map(p -> p.toVo(PublicationVo.class, dataFilterDK));
 
+        log.info("2");
         NewsletterPdfDTO efsNewsletterDTO = new NewsletterPdfDTO();
         if(!efsPublicationSearchResult.getData().isEmpty())
         {
@@ -138,6 +140,7 @@ public class NewsletterService{
         PagedSearchResultVo<PublicationVo> dkPtPublicationSearchResult = publicationService.searchPublications(params)
                 .map(p -> p.toVo(PublicationVo.class, dataFilterDK));
 
+        log.info("3");
         NewsletterPdfDTO dkPtNewsletterDTO = new NewsletterPdfDTO();
         if(!dkPtPublicationSearchResult.getData().isEmpty())
         {
@@ -159,6 +162,7 @@ public class NewsletterService{
         PagedSearchResultVo<PublicationVo> enNtMPublicationSearchResult = publicationService.searchPublications(params)
                 .map(p -> p.toVo(PublicationVo.class, dataFilterENG));
 
+        log.info("4");
         NewsletterPdfDTO enNtMNewsletterDTO = new NewsletterPdfDTO();
         if(!enNtMPublicationSearchResult.getData().isEmpty())
         {
@@ -178,6 +182,7 @@ public class NewsletterService{
         PagedSearchResultVo<PublicationVo> enPtPublicationSearchResult = publicationService.searchPublications(params)
                 .map(p -> p.toVo(PublicationVo.class, dataFilterENG));
 
+        log.info("5");
         NewsletterPdfDTO enPtNewsletterDTO = new NewsletterPdfDTO();
         if(!enPtPublicationSearchResult.getData().isEmpty())
         {
@@ -259,6 +264,7 @@ public class NewsletterService{
         }
         */
 
+        log.error("Calling newsletterservice with " + URI.create(getNewsletterSerivceUrl() + (isTest ? "sendtest" : "send")));
         HttpPost postRequest = new HttpPost( URI.create(getNewsletterSerivceUrl() + (isTest ? "sendtest" : "send")) );
         postRequest.addHeader("Content-Type", "application/json");
         postRequest.setEntity(new StringEntity(jsonString));
