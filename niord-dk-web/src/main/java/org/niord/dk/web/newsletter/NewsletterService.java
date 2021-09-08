@@ -89,7 +89,7 @@ public class NewsletterService{
     private static final String linkFoChartEnKey = "linkFoChartEn";
     private static final String newsletterIdKey = "newsletterId";
     private static final String mailListIdKey = "mailListId";
-    private static final String newsletterServiceUrlKey = "newsletterServiceUrl";
+    private static final String newsletterServiceUrlKey = "newsletterServiceUrl ";
 
     private static String baseUri = "";
 
@@ -264,8 +264,8 @@ public class NewsletterService{
         }
         */
 
-        log.error("Calling newsletterservice with " + URI.create(getNewsletterSerivceUrl() + (isTest ? "sendtest" : "send")));
-        HttpPost postRequest = new HttpPost( URI.create(getNewsletterSerivceUrl() + (isTest ? "sendtest" : "send")) );
+        log.error("Calling newsletterservice with " + URI.create(getNewsletterServiceUrl() + (isTest ? "sendtest" : "send")));
+        HttpPost postRequest = new HttpPost( URI.create(getNewsletterServiceUrl() + (isTest ? "sendtest" : "send")) );
         postRequest.addHeader("Content-Type", "application/json");
         postRequest.setEntity(new StringEntity(jsonString));
         try ( CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -340,7 +340,7 @@ public class NewsletterService{
      * Returns the baseUriSettingKey, or null if undefined
      * @return the baseUriSettingKey, or null if undefined
      */
-    private String getNewsletterSerivceUrl() {
+    private String getNewsletterServiceUrl() {
         return settingsService.getString(newsletterServiceUrlKey);
     }
 
