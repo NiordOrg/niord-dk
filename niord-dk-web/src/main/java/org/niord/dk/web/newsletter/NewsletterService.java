@@ -87,9 +87,9 @@ public class NewsletterService{
     private static final String linkChartEnKey = "linkChartEn";
     private static final String linkFoChartKey = "linkFoChart";
     private static final String linkFoChartEnKey = "linkFoChartEn";
-    private static final String newsletterIdKey = "newsletterId";
+    private static final String newsletterIdKey = "newsletterServiceId";
     private static final String mailListIdKey = "mailListId";
-    private static final String newsletterServiceUrlKey = "newsletterServiceUrl ";
+    private static final String newsletterServiceUrlKey = "newsletterServiceEndpoint";
 
     private static String baseUri = "";
 
