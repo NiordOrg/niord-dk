@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
 
     <properties>
+        <java.min.version>11</java.min.version>
         <poi.version>3.13</poi.version>
     </properties>
 
