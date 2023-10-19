@@ -10,3 +10,5 @@ private/
 .idea
 *.iml
 /org.niord.core.aton.AtonNode/
+.java-version
+.lucene/

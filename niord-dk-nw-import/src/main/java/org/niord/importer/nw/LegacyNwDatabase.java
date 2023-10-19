@@ -15,13 +15,8 @@
  */
 package org.niord.importer.nw;
 
-import org.apache.commons.lang.StringUtils;
-import org.niord.core.settings.Setting;
-import org.niord.core.settings.SettingsService;
-import org.slf4j.Logger;
+import static org.niord.core.settings.Setting.Type.Password;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,7 +36,13 @@ import java.sql.Statement;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
-import static org.niord.core.settings.Setting.Type.Password;
+import org.apache.commons.lang.StringUtils;
+import org.niord.core.settings.Setting;
+import org.niord.core.settings.SettingsService;
+import org.slf4j.Logger;
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 
 /**
  * Defines the interface to the Danish legacy NW database
@@ -49,7 +50,7 @@ import static org.niord.core.settings.Setting.Type.Password;
  * Note to hackers: The database dump that is fetched from http://msi.dma.dk/msi-safe-dump.sql.gz
  * contains no sensitive data and everybody is welcome to download it...
  */
-@Stateless
+@RequestScoped
 @SuppressWarnings("unused")
 public class LegacyNwDatabase {
 

@@ -15,8 +15,13 @@
  */
 package org.niord.importer.aton;
 
-import org.apache.commons.fileupload.FileItem;
-import org.jboss.ejb3.annotation.SecurityDomain;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.niord.core.aton.AtonNode;
 import org.niord.core.aton.vo.AtonNodeVo;
 import org.niord.core.aton.vo.AtonOsmVo;
@@ -27,34 +32,31 @@ import org.niord.core.sequence.Sequence;
 import org.niord.core.sequence.SequenceService;
 import org.niord.core.user.Roles;
 import org.niord.core.user.UserService;
+import org.niord.core.util.WebUtils;
 import org.niord.importer.aton.batch.AbstractDkAtonImportProcessor;
 import org.slf4j.Logger;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
 
 /**
  * Imports AtoN from Excel sheets.
  */
 @Path("/import/atons")
-@Stateless
-@SecurityDomain("keycloak")
+@RequestScoped
 @PermitAll
 @SuppressWarnings("unused")
 public class AtonImportRestService {
@@ -84,36 +86,53 @@ public class AtonImportRestService {
      */
     @POST
     @Path("/upload-xls")
+    @RequestBody(
+            content = @Content(
+                    mediaType = MediaType.MULTIPART_FORM_DATA,
+                    schema = @Schema(implementation = org.niord.core.model.MultipartBody.class)
+            )
+    )
+    @APIResponse(
+            responseCode = "200",
+            content = @Content(
+                    mediaType = MediaType.TEXT_PLAIN,
+                    schema = @Schema(implementation = String.class)
+            )
+    )
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces("text/plain")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Operation(description = "Performs the import operations from the AtoN xls/xlsx data files.")
     @RolesAllowed(Roles.ADMIN)
-    public String importXls(@Context HttpServletRequest request) throws Exception {
+    public String importXls(@Parameter(name = "input", hidden = true) MultipartFormDataInput input) throws Exception {
 
-        List<FileItem> items = repositoryService.parseFileUploadRequest(request);
 
-        StringBuilder txt = new StringBuilder();
+        // Initialise the form parsing parameters
+        final Map<String, Object> uploadForm = WebUtils.getMultipartInputFormParams(input);
+        final Map<String, InputStream> files = WebUtils.getMultipartInputFiles(input);
+        final StringBuilder txt = new StringBuilder();
 
-        for (FileItem item : items) {
-            if (!item.isFormField()) {
-                String name = item.getName().toLowerCase();
+        for (Entry<String, InputStream> item : files.entrySet()) {
+            String name = item.getKey().toLowerCase();
+            InputStream is = item.getValue();
+                    
 
                 // AtoN Import
                 if (name.startsWith("afmmyndighed_table") && name.endsWith(".xls")) {
-                    importAtoN(item.getInputStream(), item.getName(), txt);
+                    importAtoN(is, name, txt);
 
                 } else if (name.startsWith("fyr") && name.endsWith(".xls")) {
-                    importLights(item.getInputStream(), item.getName(), txt);
+                    importLights(is, name, txt);
 
                 } else if (name.startsWith("ais") && name.endsWith(".xls")) {
-                    importAis(item.getInputStream(), item.getName(), txt);
+                    importAis(is, name, txt);
 
                 } else if (name.startsWith("dgps") && name.endsWith(".xls")) {
-                    importDgps(item.getInputStream(), item.getName(), txt);
+                    importDgps(is, name, txt);
 
                 } else if (name.startsWith("racon") && name.endsWith(".xls")) {
-                    importRacons(item.getInputStream(), item.getName(), txt);
+                    importRacons(is, name, txt);
                 }
-            }
+            
         }
 
         return txt.toString();
@@ -242,21 +261,21 @@ public class AtonImportRestService {
                 .toArray(AtonNodeVo[]::new));
         return osm;
     }
-
-    /** Prints the result to the command line */
-    private void printResult(List<AtonNode> atons) {
-
-        AtonOsmVo osm = toOsm(atons);
-
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(AtonOsmVo.class);
-            Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(osm, System.out);
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-
-    }
+//
+//    /** Prints the result to the command line */
+//    private void printResult(List<AtonNode> atons) {
+//
+//        AtonOsmVo osm = toOsm(atons);
+//
+//        try {
+//            JAXBContext jaxbContext = JAXBContext.newInstance(AtonOsmVo.class);
+//            Marshaller marshaller = jaxbContext.createMarshaller();
+//            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//            marshaller.marshal(osm, System.out);
+//        } catch (JAXBException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
 }

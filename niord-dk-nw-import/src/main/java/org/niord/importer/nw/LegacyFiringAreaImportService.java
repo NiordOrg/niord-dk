@@ -15,40 +15,6 @@
  */
 package org.niord.importer.nw;
 
-import org.apache.commons.lang.StringUtils;
-import org.locationtech.jts.geom.Geometry;
-import org.niord.core.area.Area;
-import org.niord.core.area.AreaSearchParams;
-import org.niord.core.area.AreaService;
-import org.niord.core.domain.Domain;
-import org.niord.core.domain.DomainService;
-import org.niord.core.schedule.FiringScheduleService;
-import org.niord.core.schedule.FiringPeriod;
-import org.niord.core.category.Category;
-import org.niord.core.chart.Chart;
-import org.niord.core.conf.TextResource;
-import org.niord.core.geojson.Feature;
-import org.niord.core.geojson.FeatureCollection;
-import org.niord.core.geojson.JtsConverter;
-import org.niord.core.message.Message;
-import org.niord.core.message.MessagePart;
-import org.niord.core.message.MessageSeries;
-import org.niord.core.message.MessageSeriesService;
-import org.niord.core.settings.SettingsService;
-import org.niord.core.settings.annotation.Setting;
-import org.niord.core.util.TimeUtils;
-import org.niord.model.geojson.PointVo;
-import org.niord.model.geojson.PolygonVo;
-import org.niord.core.area.AreaType;
-import org.niord.model.message.MainType;
-import org.niord.model.message.MessagePartType;
-import org.niord.model.message.Status;
-import org.niord.model.message.Type;
-import org.slf4j.Logger;
-
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -69,12 +35,44 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static javax.ejb.TransactionAttributeType.REQUIRES_NEW;
+import org.apache.commons.lang.StringUtils;
+import org.locationtech.jts.geom.Geometry;
+import org.niord.core.area.Area;
+import org.niord.core.area.AreaSearchParams;
+import org.niord.core.area.AreaService;
+import org.niord.core.area.AreaType;
+import org.niord.core.category.Category;
+import org.niord.core.chart.Chart;
+import org.niord.core.conf.TextResource;
+import org.niord.core.domain.Domain;
+import org.niord.core.domain.DomainService;
+import org.niord.core.geojson.Feature;
+import org.niord.core.geojson.FeatureCollection;
+import org.niord.core.geojson.JtsConverter;
+import org.niord.core.message.Message;
+import org.niord.core.message.MessagePart;
+import org.niord.core.message.MessageSeries;
+import org.niord.core.message.MessageSeriesService;
+import org.niord.core.schedule.FiringPeriod;
+import org.niord.core.schedule.FiringScheduleService;
+import org.niord.core.settings.SettingsService;
+import org.niord.core.settings.annotation.Setting;
+import org.niord.core.util.TimeUtils;
+import org.niord.model.geojson.PointVo;
+import org.niord.model.geojson.PolygonVo;
+import org.niord.model.message.MainType;
+import org.niord.model.message.MessagePartType;
+import org.niord.model.message.Status;
+import org.niord.model.message.Type;
+import org.slf4j.Logger;
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 
 /**
  * Imports firing areas from a local db dump of the Danish MSI database
  */
-@Stateless
+@RequestScoped
 public class LegacyFiringAreaImportService {
 
     public static Pattern FIRING_AREA_NAME_FORMAT_1 = Pattern.compile(
@@ -255,7 +253,8 @@ public class LegacyFiringAreaImportService {
      * Merges the given area template into the area tree
      * @param areaTemplate the area to merge into the three
      */
-    @TransactionAttribute(REQUIRES_NEW)
+    //@TransactionAttribute(REQUIRES_NEW)
+    // TODO FIX ME
     public void mergeArea(Area areaTemplate) throws Exception {
 
         try {

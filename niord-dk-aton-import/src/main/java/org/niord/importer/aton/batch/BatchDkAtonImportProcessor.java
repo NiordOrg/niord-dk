@@ -20,7 +20,7 @@ import org.niord.core.aton.AtonNode;
 import org.niord.core.aton.AtonTag;
 import org.niord.core.user.User;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;

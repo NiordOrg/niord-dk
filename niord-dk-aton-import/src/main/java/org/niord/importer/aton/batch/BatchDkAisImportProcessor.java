@@ -21,8 +21,8 @@ import org.niord.core.aton.AtonTag;
 import org.niord.core.user.User;
 import org.slf4j.Logger;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 /**
  * AtoN batch processor used for converting the legacy "AFM" Light Excel row into OSM seamark format.

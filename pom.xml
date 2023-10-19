@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.niord</groupId>
         <artifactId>niord-parent</artifactId>
-        <version>2.0-SNAPSHOT</version>
+        <version>3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>niord-dk-parent</artifactId>
@@ -13,8 +13,10 @@
     <packaging>pom</packaging>
 
     <properties>
-        <java.min.version>11</java.min.version>
+        <niord.version>3.0-SNAPSHOT</niord.version>
+        <java.min.version>17</java.min.version>
         <poi.version>3.13</poi.version>
+        <surefire-plugin.version>2.22.2</surefire-plugin.version>
     </properties>
 
     <modules>

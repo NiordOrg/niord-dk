@@ -21,8 +21,8 @@ import org.niord.core.util.JsonUtils;
 import org.niord.importer.nw.LegacyNwImportRestService.ImportLegacyNwData;
 import org.niord.importer.nw.LegacyNwImportService;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.io.Serializable;
 
 /**
