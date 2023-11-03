@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package org.niord.core.promulgation.vo;
+package org.niord.dk.promulgation.vo;
 
 import org.apache.commons.lang.StringUtils;
 import org.niord.core.promulgation.IMailPromulgation;
-import org.niord.core.promulgation.AudioMessagePromulgation;
+import org.niord.core.promulgation.vo.BaseMessagePromulgationVo;
+import org.niord.core.promulgation.vo.PromulgationTypeVo;
+import org.niord.dk.promulgation.AudioMessagePromulgation;
 
 /**
  * Defines the value object data associated with audio mailing list promulgation.

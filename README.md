@@ -1,8 +1,7 @@
 # niord-dk [![Build Status](https://travis-ci.com/NiordOrg/niord-dk.svg?branch=master)](https://travis-ci.com/NiordOrg/niord-dk)
 
 # Important Notice
-The following concerns Niord 2.0 which is under development.
-The latest stable release is tagged with 1.0.1 in this repository
+The following concerns Niord 3.0
 
 # Overview
 The niord-dk project contains Denmark-specific extensions for the   
@@ -22,11 +21,9 @@ Denmark.
 
 ## Prerequisites
 
-* Java 11
+* Java 17
 * Maven 3
-* MySQL 5.7.10+ (NB: proper spatial support is a requirement)
-* JBoss Wildfly 21+
-* JBoss Keycloak 3.1+
+* MySQL 8.0.32+ (NB: proper spatial support is a requirement)
 
 ## Development Set-Up
 

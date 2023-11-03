@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package org.niord.core.promulgation;
+package org.niord.dk.promulgation;
 
-import org.niord.core.promulgation.vo.AudioMessagePromulgationVo;
+import org.niord.core.promulgation.BaseMessagePromulgation;
+import org.niord.core.promulgation.IMailPromulgation;
+import org.niord.dk.promulgation.vo.AudioMessagePromulgationVo;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;

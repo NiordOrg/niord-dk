@@ -44,6 +44,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -103,7 +104,9 @@ public class AtonImportRestService {
     @Produces(MediaType.TEXT_PLAIN)
     @Operation(description = "Performs the import operations from the AtoN xls/xlsx data files.")
     @RolesAllowed(Roles.ADMIN)
-    public String importXls(@Parameter(name = "input", hidden = true) MultipartFormDataInput input) throws Exception {
+    public String importXls(@Parameter(name = "input", hidden = true)
+    @QueryParam("name")
+    MultipartFormDataInput input) throws Exception {
 
 
         // Initialise the form parsing parameters
