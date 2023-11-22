@@ -85,25 +85,25 @@ public class AtonImportRestService {
      * @param request the servlet request
      * @return a status
      */
-    @POST
-    @Path("/upload-xls")
-    @RequestBody(
-            content = @Content(
-                    mediaType = MediaType.MULTIPART_FORM_DATA,
-                    schema = @Schema(implementation = org.niord.core.model.MultipartBody.class)
-            )
-    )
-    @APIResponse(
-            responseCode = "200",
-            content = @Content(
-                    mediaType = MediaType.TEXT_PLAIN,
-                    schema = @Schema(implementation = String.class)
-            )
-    )
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces(MediaType.TEXT_PLAIN)
-    @Operation(description = "Performs the import operations from the AtoN xls/xlsx data files.")
-    @RolesAllowed(Roles.ADMIN)
+  //  @POST
+//    @Path("/upload-xls")
+//    @RequestBody(
+//            content = @Content(
+//                    mediaType = MediaType.MULTIPART_FORM_DATA,
+//                    schema = @Schema(implementation = org.niord.core.model.MultipartBody.class)
+//            )
+//    )
+//    @APIResponse(
+//            responseCode = "200",
+//            content = @Content(
+//                    mediaType = MediaType.TEXT_PLAIN,
+//                    schema = @Schema(implementation = String.class)
+//            )
+//    )
+//    @Consumes(MediaType.MULTIPART_FORM_DATA)
+//    @Produces(MediaType.TEXT_PLAIN)
+//    @Operation(description = "Performs the import operations from the AtoN xls/xlsx data files.")
+//    @RolesAllowed(Roles.ADMIN)
     public String importXls(@Parameter(name = "input", hidden = true)
     @QueryParam("name")
     MultipartFormDataInput input) throws Exception {
