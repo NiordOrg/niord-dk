@@ -1,0 +1,61 @@
+version: "3.8"
+
+# This scripts will start up all containers that are needed for development.
+# After having run docker compose up
+# You can start up the Niord app by standing in the niord-dk-web and run > mvn quarkus:dev 
+
+services:
+# https://activemq.apache.org/components/artemis/documentation/latest/docker.html
+
+  niord-mq:
+    image: apache/activemq-artemis:2.31.2 
+    container_name: "niord-mq"
+    ports:
+      - "5672:5672"
+      - "8161:8161"
+    restart: no
+    environment:
+      ARTEMIS_USER: "niord"
+      ARTEMIS_PASSWORD: "niord"
+   
+  niord-db:
+    image: mysql:${MYSQL_VERSION:-8.0.35}
+    container_name: niord-db
+    ports:
+      - "3306:3306"
+    restart: no
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-mysql}
+      MYSQL_USER: niord
+      MYSQL_PASSWORD: ${NIORD_DB_PASSWORD:-niord}
+      MYSQL_DATABASE: niord
+    cap_add:
+      - SYS_NICE  # Disables som mbind warnings
+
+  niord-keycloak-db:
+    image: postgres:latest
+    container_name: niord-keycloak-db
+    restart: no
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+ 
+  niord-keycloak:
+    image: quay.io/keycloak/keycloak:${NIORD_KEYCLOAK_VERSION:-22.0.5}
+    container_name: niord-keycloak
+    restart: no
+    command: ['start-dev', '--import-realm', '--http-relative-path /auth', '--hostname-url=http://localhost:8080/auth/']
+    volumes:
+      - ./niord-bootstrap-realm.json:/opt/keycloak/data/import/niord-bootstrap-realm.json
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+      KC_DB: postgres
+      KC_DB_URL_HOST: niord-keycloak-db
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KCDB_PASSWORD:-keycloak}
+    depends_on:
+      - niord-keycloak-db
+    ports:
+      - "8080:8080"      
