@@ -15,8 +15,8 @@ services:
       - "8161:8161"
     restart: no
     environment:
-      ARTEMIS_USER: "niord"
-      ARTEMIS_PASSWORD: "niord"
+      ARTEMIS_USER: ${NIORD_MQ_USER:-niord}
+      ARTEMIS_PASSWORD: ${NIORD_MQ_PASSWORD:-niord}
    
   niord-db:
     image: mysql:${MYSQL_VERSION:-8.0.35}
@@ -58,4 +58,12 @@ services:
     depends_on:
       - niord-keycloak-db
     ports:
-      - "8080:8080"      
+      - "8080:8080"
+      
+  niord-smtp:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui      

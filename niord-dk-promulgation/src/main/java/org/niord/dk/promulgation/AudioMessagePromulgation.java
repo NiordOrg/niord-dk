@@ -20,6 +20,7 @@ import org.niord.core.promulgation.BaseMessagePromulgation;
 import org.niord.core.promulgation.IMailPromulgation;
 import org.niord.dk.promulgation.vo.AudioMessagePromulgationVo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
@@ -37,6 +38,7 @@ public class AudioMessagePromulgation extends BaseMessagePromulgation<AudioMessa
 
     public static final String SERVICE_ID = "audio";
 
+    @Column(length = 16_777_216) 
     @Lob
     String text;
 
