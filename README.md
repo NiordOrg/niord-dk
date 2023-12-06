@@ -4,8 +4,8 @@
 The following concerns Niord 3.0
 
 # Overview
-The niord-dk project contains Denmark-specific extensions for the   
-[niord](https://github.com/NiordOrg) system, i.e. a system
+The niord-dk project contains specific extensions for the danish version of   
+[niord](https://github.com/NiordOrg), i.e. a system
 for producing and promulgating NW + NM T&P messages.
 
 Niord is documented extensively at http://docs.niord.org
@@ -41,40 +41,10 @@ The following commands will start two MySQL databases, one for the application s
 and one for Keycloak, and also run Keycloak itself.
 
     mkdir $HOME/.niord-dk
-    docker-compose -f dev/docker-dev-compose.yml pull
-    docker-compose -f dev/docker-dev-compose.yml up -d
+    docker compose up
 
 The initial *mkdir* command is just to avoid permission problems since docker would otherwise create it as owned
 by root.
-
-Once this is up and running, create a Keycloak admin user (default niordadmin/keycloak)
-which can be used to create user groups and assign domain roles to the groups:
-
-    ./dev/keycloak-admin-user.sh
-
-Enter [http://localhost:8090/auth/](http://localhost:8090/auth/) and check that you can log in using the Keycloak admin user.
-
-### Configuring Wildfly
-
-Next, create and configure a Wildfly installation using:
-
-    ./dev/install-wildfly.sh
-
-Import or open the niord-dk project in your favorite IDE. Here we describe  the 
-*IntelliJ* set-up:
-* Firstly, you may want to right-click the wildfly-10.1.0-Final folder and mark
-  the folder as excluded.
-* From Github, also check out the niord-dk parent 
-  [niord](https://github.com/NiordOrg/niord) projects.
-* Import the niord-dk project in IntelliJ via its pom.xml.
-* Under the "Maven Projects" also import the parent niord project.
-* In Run -> Edit configuration..., configure a new local JBoss server based on the Wilfly
-  installation produced above.
-* Deploy "niord-dk-web:war exploded" to the server.
-* If you have only updated web resources, there is no need to re-deploy the web application. Use the "Update resources" 
-  function instead.
-* To get rid of superfluous IntelliJ code editor warnings, disable the "Declaration access can be weaker" 
-  and "Dangling Javadoc comment" inspections.
 
 The Keycloak docker image creates an initial domain, "Master", and a Niord user, sysadmin/sysadmin,
 that should be used for the initial configuration of the system, whereupon they should be
