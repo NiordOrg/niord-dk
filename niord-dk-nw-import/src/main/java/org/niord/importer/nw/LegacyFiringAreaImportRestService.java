@@ -35,6 +35,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.Schedule;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
@@ -51,6 +52,7 @@ import jakarta.ws.rs.QueryParam;
 @RequestScoped
 @RolesAllowed(Roles.ADMIN)
 @SuppressWarnings("unused")
+@Transactional
 public class LegacyFiringAreaImportRestService {
 
     @Inject

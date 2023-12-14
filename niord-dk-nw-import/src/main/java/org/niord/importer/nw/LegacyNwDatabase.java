@@ -54,7 +54,7 @@ import jakarta.inject.Inject;
 @SuppressWarnings("unused")
 public class LegacyNwDatabase {
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static {
         try {
             Class.forName(JDBC_DRIVER);
