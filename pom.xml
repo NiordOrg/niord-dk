@@ -15,22 +15,23 @@
 
     <properties>
         <niord.version>3.0-SNAPSHOT</niord.version>
-        <java.min.version>17</java.min.version>
         <poi.version>3.13</poi.version>
-        <surefire-plugin.version>2.22.2</surefire-plugin.version>
     </properties>
+
+
 
   <build>
     <plugins>
       <plugin>
-        <groupId>io.quarkus</groupId>
+        <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
-        <version>${io.quarkus.version}</version>
+        <version>${quarkus.platform.version}</version>
       </plugin>
-      <plugin>
+      
+       <plugin>
         <groupId>org.jboss.jandex</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
-        <version>1.2.1</version>
+        <version>1.2.3</version>
         <executions>
           <execution>
             <id>make-index</id>
@@ -43,12 +44,12 @@
     </plugins>
   </build>
   
-    
+      
     <modules>
         <module>niord-dk-web</module>
         <module>niord-dk-promulgation</module>
         <module>niord-dk-aton-import</module>
         <module>niord-dk-nw-import</module>
     </modules>
-
+    
 </project>
