@@ -50,7 +50,7 @@
             <version>${project.version}</version>
         </dependency>
 
-  <dependency>
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-keycloak-authorization</artifactId>
         </dependency>
@@ -112,7 +112,7 @@
 
         <plugins>
         
-             <plugin>
+        <plugin>
         <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
         <version>${quarkus.platform.version}</version>

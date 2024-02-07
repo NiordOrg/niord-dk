@@ -1,0 +1,27 @@
+version: "3.8"
+
+# This scripts will start up all containers that are needed for development.
+# After having run docker compose up
+# You can start up the Niord app by standing in the niord-dk-web and run > mvn quarkus:dev 
+
+services:
+
+  busybox:
+    image: busybox
+    container_name: "niord-dk-app-bootstrap"
+    volumes:
+      - niord_volume:/opt/niord_home
+      - ./niord-dk-dev-basedata.zip:/niord-dk-dev-basedata.zip
+    command: >
+      /bin/sh -c "
+      if [ ! -d '/opt/niord_home/batch-jobs' ]; then
+        mkdir -p /opt/niord_home/batch-jobs/batch-sets
+        chown -R 185:0 /opt/niord_home
+        chmod -R 775 /opt/niord_home
+        cp /niord-dk-dev-basedata.zip /opt/niord_home/batch-jobs/batch-sets;
+      fi;
+      sleep 200
+      "
+
+volumes:
+  niord_volume:

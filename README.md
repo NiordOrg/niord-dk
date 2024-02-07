@@ -1,8 +1,5 @@
 # niord-dk [![Build Status](https://travis-ci.com/NiordOrg/niord-dk.svg?branch=master)](https://travis-ci.com/NiordOrg/niord-dk)
 
-# Important Notice
-The following concerns Niord 3.0
-
 # Overview
 The niord-dk project contains specific extensions for the danish version of   
 [niord](https://github.com/NiordOrg), i.e. a system
@@ -26,11 +23,13 @@ Denmark.
 * MySQL 8.0.32+ (NB: proper spatial support is a requirement)
 
 ## Development Set-Up
+The easiest way to get started developing on this project is to use Docker.
+
 
 The [niord-appsrv](https://github.com/NiordOrg/niord-appsrv) project contains scripts for
 setting up Wildfly, Keycloak, etc.
 
-However, the easiest way to get started developing on this project is to use Docker.
+However, 
 
 ### Starting MySQL and Keycloak
 
