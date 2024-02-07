@@ -14,4 +14,4 @@ fi
 
 echo "Starting Niord DK"
 
-mvn -o quarkus:dev -Dniord.home=../$NIORD_HOME -Dquarkus.jaeger.enabled=true -Dquarkus.oidc.client-id=niord-web -Dquarkus.oidc.roles.role-claim-path=resource_access/niord-web/roles
+mvn -o quarkus:dev -Dniord.home=../$NIORD_HOME -Dquarkus.jaeger.enabled=true
