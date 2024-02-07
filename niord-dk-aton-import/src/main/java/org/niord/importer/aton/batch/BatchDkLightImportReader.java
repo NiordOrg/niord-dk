@@ -15,7 +15,7 @@
  */
 package org.niord.importer.aton.batch;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 /**
  * Reads lights from the DB

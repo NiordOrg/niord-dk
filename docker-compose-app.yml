@@ -1,0 +1,32 @@
+version: "3.8"
+
+# This scripts will start up all containers that are needed for development.
+# After having run docker compose up
+# You can start up the Niord app by standing in the niord-dk-web and run > mvn quarkus:dev 
+
+services:
+# https://activemq.apache.org/components/artemis/documentation/latest/docker.html
+
+  # image: sfs0cr.azurecr.io/niord-app:20231122.2
+  niord-app:
+    image: dma/niord-dk-app:latest
+    container_name: "niord-app"
+    ports:
+      - "8888:8888"
+    restart: no
+    depends_on:
+      niord-db:
+        condition: service_healthy
+      niord-keycloak:
+        condition: service_healthy
+    environment:
+      NIORD_DB_URL: "jdbc:mysql://niord-db:3306/niord?allowPublicKeyRetrieval=true&useSSL=false" 
+      NIORD_MQ_HOST_PORT: "niord-mq:5672"
+      NIORD_KEYCLOAK_URL: "http://niord-keycloak:8080/auth/realms/niord"
+      authServerUrl: "http://niord-keycloak:8080/auth"
+      frontEndAuthServerUrl: "http://localhost:8080/auth"
+      NIORD_HOME: "/opt/niord_home"
+    volumes:
+      - ./niord_home:/opt/niord_home
+      - ./niord-dev-basedata.zip:/opt/niord_home/batch-jobs/batch-sets/niord-dev-basedata.zip
+            

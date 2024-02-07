@@ -16,42 +16,43 @@
 
 package org.niord.importer.nw;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.jboss.resteasy.annotations.cache.NoCache;
-import org.jboss.ejb3.annotation.SecurityDomain;
 import org.niord.core.area.Area;
-import org.niord.core.schedule.FiringPeriod;
 import org.niord.core.batch.BatchService;
 import org.niord.core.message.vo.SystemMessageVo;
+import org.niord.core.schedule.FiringPeriod;
 import org.niord.core.user.Roles;
 import org.niord.model.DataFilter;
 import org.niord.model.IJsonSerializable;
 import org.slf4j.Logger;
 
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.Schedule;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ejb.Schedule;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DefaultValue;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 
 /**
  * Handles import of firing area from the "oldmsi" database,
  * and creation of firing area message templates (which area actually created as NM's).
  */
 @Path("/import/fa")
-@Stateless
-@SecurityDomain("keycloak")
+@RequestScoped
 @RolesAllowed(Roles.ADMIN)
 @SuppressWarnings("unused")
+@Transactional
 public class LegacyFiringAreaImportRestService {
 
     @Inject

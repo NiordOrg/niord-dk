@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package org.niord.core.promulgation;
+package org.niord.dk.promulgation;
 
-import org.niord.core.promulgation.vo.AudioMessagePromulgationVo;
+import org.niord.core.promulgation.BaseMessagePromulgation;
+import org.niord.core.promulgation.IMailPromulgation;
+import org.niord.dk.promulgation.vo.AudioMessagePromulgationVo;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 
 /**
  * Defines the message promulgation entity associated with audio mailing list promulgation.
@@ -35,6 +38,7 @@ public class AudioMessagePromulgation extends BaseMessagePromulgation<AudioMessa
 
     public static final String SERVICE_ID = "audio";
 
+    @Column(length = 16_777_216) 
     @Lob
     String text;
 

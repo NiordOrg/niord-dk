@@ -14,26 +14,29 @@
  * limitations under the License.
  */
 
-package org.niord.core.promulgation;
+package org.niord.dk.promulgation;
+
+import java.util.ResourceBundle;
 
 import org.apache.commons.lang.StringUtils;
 import org.niord.core.dictionary.DictionaryService;
 import org.niord.core.message.vo.SystemMessageVo;
+import org.niord.core.promulgation.BasePromulgationService;
+import org.niord.core.promulgation.PromulgationException;
+import org.niord.core.promulgation.PromulgationType;
 import org.niord.core.promulgation.PromulgationType.Requirement;
-import org.niord.core.promulgation.vo.AudioMessagePromulgationVo;
 import org.niord.core.promulgation.vo.BaseMessagePromulgationVo;
 import org.niord.core.util.PositionAssembler;
 import org.niord.core.util.PositionUtils;
 import org.niord.core.util.TextUtils;
+import org.niord.dk.promulgation.vo.AudioMessagePromulgationVo;
 import org.niord.model.DataFilter;
 import org.niord.model.message.MessagePartType;
 
-import javax.ejb.Lock;
-import javax.ejb.LockType;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.inject.Inject;
-import java.util.ResourceBundle;
+import jakarta.ejb.Lock;
+import jakarta.ejb.LockType;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 /**
  * Manages audio promulgations.
@@ -41,8 +44,7 @@ import java.util.ResourceBundle;
  * Audio promulgations are verbose textual versions of the messages suitable for being read up on the radio
  * and sent to the radio station via e-mail.
  */
-@Singleton
-@Startup
+@ApplicationScoped
 @Lock(LockType.READ)
 @SuppressWarnings("unused")
 public class AudioPromulgationService extends BasePromulgationService {

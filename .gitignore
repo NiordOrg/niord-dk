@@ -1,6 +1,4 @@
-/wildfly-*
 target/
-niord-dk-web/overlays/
 .settings
 .project
 .classpath
@@ -10,3 +8,6 @@ private/
 .idea
 *.iml
 /org.niord.core.aton.AtonNode/
+.java-version
+.lucene/
+home-niord-dk

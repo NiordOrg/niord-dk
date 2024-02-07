@@ -15,36 +15,37 @@
  */
 package org.niord.importer.nw;
 
-import org.apache.commons.lang.StringUtils;
-import org.jboss.resteasy.annotations.cache.NoCache;
-import org.jboss.ejb3.annotation.SecurityDomain;
-import org.niord.core.batch.BatchService;
-import org.niord.core.user.Roles;
-import org.niord.model.IJsonSerializable;
-import org.slf4j.Logger;
-
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.Schedule;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.jboss.resteasy.annotations.cache.NoCache;
+import org.niord.core.batch.BatchService;
+import org.niord.core.user.Roles;
+import org.niord.model.IJsonSerializable;
+import org.slf4j.Logger;
+
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ejb.Schedule;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+
 /**
  * Imports legacy NW from an "oldmsi" database.
  */
 @Path("/import/nw")
-@Stateless
-@SecurityDomain("keycloak")
+@RequestScoped
 @RolesAllowed(Roles.ADMIN)
 @SuppressWarnings("unused")
+@Transactional
 public class LegacyNwImportRestService {
 
     @Inject

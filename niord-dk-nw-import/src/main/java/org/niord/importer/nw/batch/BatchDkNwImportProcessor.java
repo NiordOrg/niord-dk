@@ -18,7 +18,7 @@ package org.niord.importer.nw.batch;
 import org.niord.core.message.Message;
 import org.niord.core.message.batch.BatchMessageImportProcessor;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 /**
  * Processes legacy NW messages

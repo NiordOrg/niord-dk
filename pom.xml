@@ -3,25 +3,39 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.niord</groupId>
-        <artifactId>niord-parent</artifactId>
-        <version>2.0-SNAPSHOT</version>
+        <groupId>org.niord.base</groupId>
+        <artifactId>niord-base-parent</artifactId>
+        <version>3.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>org.niord.dk</groupId>
     <artifactId>niord-dk-parent</artifactId>
     <name>Niord DK Parent</name>
     <packaging>pom</packaging>
 
     <properties>
-        <java.min.version>11</java.min.version>
+        <niord.version>3.0-SNAPSHOT</niord.version>
         <poi.version>3.13</poi.version>
     </properties>
 
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>${quarkus.platform.group-id}</groupId>
+        <artifactId>quarkus-maven-plugin</artifactId>
+        <version>${quarkus.platform.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+  
+      
     <modules>
         <module>niord-dk-web</module>
         <module>niord-dk-promulgation</module>
         <module>niord-dk-aton-import</module>
         <module>niord-dk-nw-import</module>
     </modules>
-
+    
 </project>
