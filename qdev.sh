@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#NIORD_HOME=~/.niord-dk
 NIORD_HOME=home-niord-dk
 
 #rm -fr $NIORD_HOME
 # Check if the NIORD_HOME directory does not exist
+# If not copy the bootstrap data into it
 if [ ! -d "$NIORD_HOME" ]; then
     echo "Creating Niord Home"
     mkdir -p $NIORD_HOME/batch-jobs/batch-sets
