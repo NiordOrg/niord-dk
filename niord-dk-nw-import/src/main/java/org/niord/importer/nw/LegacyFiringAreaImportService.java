@@ -66,13 +66,14 @@ import org.niord.model.message.Status;
 import org.niord.model.message.Type;
 import org.slf4j.Logger;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 
 /**
  * Imports firing areas from a local db dump of the Danish MSI database
  */
-@RequestScoped
+@ApplicationScoped
 public class LegacyFiringAreaImportService {
 
     public static Pattern FIRING_AREA_NAME_FORMAT_1 = Pattern.compile(
