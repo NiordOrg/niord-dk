@@ -94,6 +94,12 @@ EXPOSE 8080
 #USER 185  Use root user for now, because of deployment issues
 USER root
 
+# Make sure the JVM sees the truststore
+ENV JAVA_TOOL_OPTIONS="-Djavax.net.ssl.trustStore=/deployments/conf/tls/truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12"
+
+# Tell Quarkus OIDC to use the JSSE trust
+ENV QUARKUS_OIDC_TLS_CONFIGURATION_NAME=javax.net.ssl
+
 ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
