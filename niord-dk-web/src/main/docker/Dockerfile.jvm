@@ -102,7 +102,7 @@ ENV QUARKUS_OIDC_TLS_TRUST_STORE=/deployments/conf/tls/truststore.p12
 ENV QUARKUS_OIDC_TLS_TRUST_STORE_PASSWORD=changeit
 ENV QUARKUS_OIDC_TLS_TRUST_STORE_FILE_TYPE=PKCS12
 
-ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djavax.net.debug=ssl,handshake"
+ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dio.netty.handler.ssl.noOpenSsl=true -Djavax.net.debug=ssl,handshake"
 
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
