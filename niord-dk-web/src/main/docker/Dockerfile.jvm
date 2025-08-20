@@ -89,6 +89,7 @@ COPY --chown=185 target/quarkus-app/app/ /deployments/app/
 COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
 
 COPY --chown=185 src/truststore/truststore.p12 /deployments/conf/tls/truststore.p12
+RUN chmod 0444 /deployments/conf/tls/truststore.p12
 
 EXPOSE 8080
 #USER 185  Use root user for now, because of deployment issues
@@ -97,10 +98,12 @@ USER root
 # Make sure the JVM sees the truststore
 ENV JAVA_TOOL_OPTIONS="-Djavax.net.ssl.trustStore=/deployments/conf/tls/truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12"
 
-# Tell Quarkus OIDC to use the JSSE trust
-ENV QUARKUS_OIDC_TLS_CONFIGURATION_NAME=javax.net.ssl
+ENV QUARKUS_OIDC_TLS_TRUST_STORE=/deployments/conf/tls/truststore.p12
+ENV QUARKUS_OIDC_TLS_TRUST_STORE_PASSWORD=changeit
+ENV QUARKUS_OIDC_TLS_TRUST_STORE_FILE_TYPE=PKCS12
 
-ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Djavax.net.debug=ssl,handshake"
+
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
 
