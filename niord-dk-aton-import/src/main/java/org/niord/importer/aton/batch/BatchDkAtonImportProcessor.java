@@ -20,6 +20,7 @@ import org.niord.core.aton.AtonNode;
 import org.niord.core.aton.AtonTag;
 import org.niord.core.user.User;
 
+import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Named;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -36,6 +37,7 @@ import java.util.stream.Collectors;
  * http://wiki.openstreetmap.org/wiki/Key:seamark
  * and sub-pages.
  */
+@Dependent
 @Named
 public class BatchDkAtonImportProcessor extends AbstractDkAtonImportProcessor {
 

@@ -15,11 +15,13 @@
  */
 package org.niord.importer.aton.batch;
 
+import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Named;
 
 /**
  * Reads AtoNs from the DB
  */
+@Dependent
 @Named
 public class BatchDkAtonImportReader extends AbstractDkAtonImportReader {
 

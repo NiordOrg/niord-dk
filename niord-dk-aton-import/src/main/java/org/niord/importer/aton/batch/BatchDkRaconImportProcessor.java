@@ -21,6 +21,7 @@ import org.niord.core.aton.AtonTag;
 import org.niord.core.user.User;
 import org.slf4j.Logger;
 
+import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.regex.Matcher;
@@ -37,6 +38,7 @@ import java.util.regex.Pattern;
  * RACONs are also documented at:
  * http://wiki.openstreetmap.org/wiki/Key:radar_transponder
  */
+@Dependent
 @Named
 public class BatchDkRaconImportProcessor extends AbstractDkAtonImportProcessor {
 
