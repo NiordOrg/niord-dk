@@ -55,6 +55,23 @@
             <artifactId>quarkus-keycloak-authorization</artifactId>
         </dependency>
 
+        <!-- Schema delivery. Nobody runs scripts by hand here and the pipeline has no
+             database step, so the schema has to arrive on its own. Flyway applies a fixed,
+             reviewed script; the alternative, hibernate generation=update, would let any later
+             entity edit silently reshape the deployed schema on next boot. -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-flyway</artifactId>
+        </dependency>
+
+        <!-- Flyway dropped built-in MySQL support in 8.0 and quarkus-flyway does not
+             pull the module in, so without this the application refuses to start with
+             "Unsupported Database: MySQL 8.0". -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-mysql</artifactId>
